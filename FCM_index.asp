@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>코디알리미</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="x_FCM_images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="x_FCM_images/favicon.ico" type="image/x-icon" />
   <!-- 구글 웹폰트 불러오기 -->
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap&subset=korean" rel="stylesheet" />
   <!-- manifest 추가 -->
-  <link rel="manifest" href="manifest.json" />
+  <link rel="manifest" href="FCM_manifest.json" />
   <!-- iOS 설정 -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="apple-mobile-web-app-title" content="codinoti" />
-  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+  <link rel="apple-touch-icon" href="X00_images/icons/icon-152x152.png" />
   <!-- 메타데이터 설정 -->
   <meta name="description" content="코디알리미" />
   <meta name="theme-color" content="#ffffff" />
@@ -36,7 +36,7 @@
       })
       .then(function (token) {
         tokenElement.innerHtml = token;
-        submitToken(token);
+        console.log(token);
       })
       .catch(function (err) {
         errorElement.innerHtml = err;
@@ -50,7 +50,7 @@
         .then(function (refreshedToken) {
           console.log("토큰 갱신발급");
           tokenElement.innerHtml = refreshedToken;
-          submitToken(refreshedToken);
+	console.log(refreshedToken);
         })
         .catch(function (err) {
           errorElement.innerHtml = err;
@@ -139,7 +139,7 @@
     <p id="error" style="color:red;"></p>
   </div>
   <div class="container"></div>
-  <script src="install.js"></script>
+  <script src="FCM_install.js"></script>
   <script>
     tokenElement = document.getElementById("token");
     errorElement = document.getElementById("error");
@@ -148,7 +148,7 @@
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
-          .register("ServiceWorker.js")
+          .register("FCM_ServiceWorker.js")
           .then(reg => {
             console.log("서비스 워커가 등록되었습니다", reg);
           })
