@@ -20,9 +20,7 @@
   <!-- 메타데이터 설정 -->
   <meta name="description" content="코디알리미" />
   <meta name="theme-color" content="#ffffff" />
-  <!-- <script src="scripts/jquery-3.4.1.min.js"></script> -->
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="scripts/jquery-3.4.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
   <script>
