@@ -20,7 +20,6 @@
   <!-- 메타데이터 설정 -->
   <meta name="description" content="코디알리미" />
   <meta name="theme-color" content="#ffffff" />
-  <script src="scripts/jquery-3.4.1.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
   <script>
@@ -36,11 +35,11 @@
         return messaging.getToken();
       })
       .then(function (token) {
-        $("#token").html(token);
+        tokenElement.innerHtml = token;
         submitToken(token);
       })
       .catch(function (err) {
-        $("#error").html(err);
+        errorElement.innerHtml = err;
         console.log("토큰 발급 실패", err);
       });
 
@@ -50,11 +49,11 @@
         .getToken()
         .then(function (refreshedToken) {
           console.log("토큰 갱신발급");
-          $("#token").html(refreshedToken);
+          tokenElement.innerHtml = refreshedToken;
           submitToken(refreshedToken);
         })
         .catch(function (err) {
-          $("#error").html(err);
+          errorElement.innerHtml = err;
           console.log("토큰 갱신발급 실패", err);
         });
     });
@@ -142,6 +141,9 @@
   <div class="container"></div>
   <script src="scripts/install.js"></script>
   <script>
+    tokenElement = document.getElementById("token");
+    errorElement = document.getElementById("error");
+
     // 서비스 워커 등록
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
