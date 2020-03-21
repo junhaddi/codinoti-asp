@@ -139,7 +139,7 @@
     <p id="error" style="color:red;"></p>
   </div>
   <div class="container"></div>
-  <script src="scripts/install.js"></script>
+  <script src="install.js"></script>
   <script>
     tokenElement = document.getElementById("token");
     errorElement = document.getElementById("error");
@@ -151,6 +151,15 @@
           .register("sw.js")
           .then(reg => {
             console.log("서비스 워커가 등록되었습니다", reg);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+        navigator.serviceWorker
+          .register("firebase-messaging-sw.js")
+          .then(reg => {
+            console.log("파이어베이스 서비스 워커가 등록되었습니다", reg);
           })
           .catch(error => {
             console.log(error);
