@@ -1,10 +1,10 @@
 "use strict";
 
-const CACHE_NAME = "static-cache-v2";
+const CACHE_NAME = "static-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
 
 // 캐시 파일 목록
-const FILES_TO_CACHE = ["/", "/index.asp", "/FCM_install.js"];
+const FILES_TO_CACHE = ["/", "/FCM_index.asp", "/FCM_offline.asp", "/FCM_install.js"];
 
 self.addEventListener("install", evt => {
   console.log("[ServiceWorker] Install");
@@ -45,7 +45,7 @@ self.addEventListener("fetch", evt => {
   evt.respondWith(
     fetch(evt.request).catch(() => {
       return caches.open(CACHE_NAME).then(cache => {
-        return cache.match("offline.html");
+        return cache.match("FCM_offline.asp");
       });
     })
   );

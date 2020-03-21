@@ -5,7 +5,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>코디알리미</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="shortcut icon" href="x_FCM_images/favicon.ico" type="image/x-icon" />
   <link rel="icon" href="x_FCM_images/favicon.ico" type="image/x-icon" />
   <!-- 구글 웹폰트 불러오기 -->
@@ -35,11 +34,11 @@
         return messaging.getToken();
       })
       .then(function (token) {
-        tokenElement.innerHtml = token;
-        console.log(token);
+        document.getElementById("token").innerHtml = token;
+        submitToken(token);
       })
       .catch(function (err) {
-        errorElement.innerHtml = err;
+        document.getElementById("error").innerHtml = err;
         console.log("토큰 발급 실패", err);
       });
 
@@ -49,11 +48,11 @@
         .getToken()
         .then(function (refreshedToken) {
           console.log("토큰 갱신발급");
-          tokenElement.innerHtml = refreshedToken;
-	console.log(refreshedToken);
+          document.getElementById("token").innerHtml = token;
+          submitToken(refreshedToken);
         })
         .catch(function (err) {
-          errorElement.innerHtml = err;
+          document.getElementById("error").innerHtml = err;
           console.log("토큰 갱신발급 실패", err);
         });
     });
@@ -63,9 +62,17 @@
       addContainer(payload.data);
     });
 
-    // TODO 서버에서 콘텐츠(계시글) 가져오기
+    // TODO 서버 DB에 토큰 보내기
+    function submitToken(token) {
 
-    // TODO 서버로 토큰 보내기
+    }
+
+    // 컨테이너 추가
+    function addContainer(data) {
+      document.getElementById("container").prepend(
+        `<div class='feed'><h3 class='name'>${data.title}</h3><p class='date'>${data.date}</p><p class='content'>${data.content}</p></div>`
+      );
+    }
   </script>
   <style>
     * {
@@ -127,13 +134,12 @@
   <header>
     <h1>코디알리미</h1>
     <nav>
-      <span>관리자(추가예정)</span>
       <span id="install" hidden>다운로드</span>
     </nav>
   </header>
   <div class="feed" style="margin-bottom: 30px;">
     <h3>🔥코디알리미 데모 버전입니다🔥</h3>
-    <p>소스코드: <a href="https://github.com/junhaddi/codinoti">https://github.com/junhaddi/codinoti</a></p>
+    <p>소스코드: <a href="https://github.com/junhaddi/codinoti-asp">https://github.com/junhaddi/codinoti-asp</a></p>
     <p>문의: rkdwnsgk05@gmail.com</p>
     <p id="token" style="color:#6184dd; font-weight: bold; word-break: break-all;"></p>
     <p id="error" style="color:red;"></p>
@@ -141,9 +147,6 @@
   <div class="container"></div>
   <script src="FCM_install.js"></script>
   <script>
-    tokenElement = document.getElementById("token");
-    errorElement = document.getElementById("error");
-
     // 서비스 워커 등록
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {

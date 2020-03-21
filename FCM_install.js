@@ -11,13 +11,13 @@ function saveBeforeInstallPromptEvent(evt) {
   installButton.removeAttribute("hidden");
 }
 
-// PWA 설치
+// 설치 프롬프트 띄우기
 function installPWA(evt) {
   deferredInstallPrompt.prompt();
+  evt.srcElement.setAttribute("hidden", true);
   deferredInstallPrompt.userChoice.then(choice => {
     if (choice.outcome === "accepted") {
       console.log("User accepted the A2HS prompt", choice);
-      evt.srcElement.setAttribute("hidden", true);
     } else {
       console.log("User dismissed the A2HS prompt", choice);
     }
