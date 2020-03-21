@@ -21,6 +21,8 @@
   <meta name="theme-color" content="#ffffff" />
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <script>
     // 파이어베이스 프로젝트 ID
     firebase.initializeApp({ messagingSenderId: "188505041022" });
@@ -34,11 +36,11 @@
         return messaging.getToken();
       })
       .then(function (token) {
-        document.getElementById("token").innerHtml = token;
+        $("#token").html(token);
         submitToken(token);
       })
       .catch(function (err) {
-        document.getElementById("error").innerHtml = err;
+        $("error").html(err);
         console.log("토큰 발급 실패", err);
       });
 
@@ -48,11 +50,11 @@
         .getToken()
         .then(function (refreshedToken) {
           console.log("토큰 갱신발급");
-          document.getElementById("token").innerHtml = token;
+          $("token").html(token);
           submitToken(refreshedToken);
         })
         .catch(function (err) {
-          document.getElementById("error").innerHtml = err;
+          $("error").html(err);
           console.log("토큰 갱신발급 실패", err);
         });
     });
@@ -64,14 +66,13 @@
 
     // TODO 서버 DB에 토큰 보내기
     function submitToken(token) {
-
+      console.log(token);
     }
 
     // 컨테이너 추가
     function addContainer(data) {
-      document.getElementById("container").prepend(
-        `<div class='feed'><h3 class='name'>${data.title}</h3><p class='date'>${data.date}</p><p class='content'>${data.content}</p></div>`
-      );
+      $(".container").prepend(
+        `<div class='feed'><h3 class='name'>${data.title}</h3><p class='date'>${data.date}</p><p class='content'>${data.content}</p></div>`);
     }
   </script>
   <style>
@@ -154,15 +155,6 @@
           .register("FCM_ServiceWorker.js")
           .then(reg => {
             console.log("서비스 워커가 등록되었습니다", reg);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-
-        navigator.serviceWorker
-          .register("firebase-messaging-sw.js")
-          .then(reg => {
-            console.log("파이어베이스 서비스 워커가 등록되었습니다", reg);
           })
           .catch(error => {
             console.log(error);
